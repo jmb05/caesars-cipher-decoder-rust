@@ -19,7 +19,7 @@ This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions.
     ");
-
+    
     println!("{}", info_copyright_and_warranty);
 
     let args: Vec<String> = env::args().collect();
@@ -47,7 +47,7 @@ fn decipher(in_s: &str) -> bool {
         byte_vec = Vec::new();
         for b in &in_vec {
             let current_char = to_uppercase(*b);
-            if  current_char >= 65 && current_char <= 90 {
+            if  (65..=90).contains(&current_char) {
                 if current_char == 65 {
                     byte_vec.push(current_char + 25);
                 } else {
@@ -75,10 +75,11 @@ fn decipher(in_s: &str) -> bool {
 }
 
 fn to_uppercase(b: u8) -> u8 {
-    if b >= 97 && b <= 122 {
-        return b - 32u8;
+    if (97..=122).contains(&b) {
+        b - 32u8
+    } else {
+        b
     }
-    b
 }
 
 fn read_yes_no() -> bool {
